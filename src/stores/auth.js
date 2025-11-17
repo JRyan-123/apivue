@@ -8,9 +8,12 @@ export const useAuthStore = defineStore('auth', {
         user: null,
         token: localStorage.getItem('token') || null,
         errors: {},
+        loading: false,
     }),
     actions: {
         async authenticate(apiRoute, formData) {
+            this.loading = true;
+
             try {
 
                 const res = await api.post(`/${apiRoute}`, formData);
@@ -23,6 +26,8 @@ export const useAuthStore = defineStore('auth', {
             } catch (error) {
                 this.catchError(error);
 
+            } finally {
+                this.loading = false;
             }
         },
 
@@ -45,7 +50,7 @@ export const useAuthStore = defineStore('auth', {
             try {
                 const res = await api.get("/user");
                 this.user = res.data;
-            } catch (err) {
+            } catch (e) {
                 this.logout();
             }
         },

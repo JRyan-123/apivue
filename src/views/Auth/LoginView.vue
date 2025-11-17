@@ -22,7 +22,7 @@ const { errors } = storeToRefs(auth);
 onMounted(() => errors.value = {});
 </script>
 <template>
-    <h1 class="text-3xl text-center mb-3">Register Form</h1>
+    <h1 class="text-3xl text-center mb-3">Login Form</h1>
     <main class="flex justify-center">
 
         <form @submit.prevent="login" class="w-1/2 ">
@@ -33,8 +33,8 @@ onMounted(() => errors.value = {});
                 v-model="formData.password" />
 
             <button class="w-full px-6 py-2 text-yellow-500 border border-yellow-500 rounded-lg 
-                hover:bg-yellow-500 hover:text-black hover:scale-102 transition duration-200">
-                Login
+                hover:bg-yellow-500 hover:text-black hover:scale-102 transition duration-200" :disabled="auth.loading">
+                {{ auth.loading ? 'Loading...' : 'Login' }}
             </button>
 
 
