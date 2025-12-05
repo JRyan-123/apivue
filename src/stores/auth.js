@@ -50,7 +50,7 @@ export const useAuthStore = defineStore('auth', {
             try {
                 const res = await api.get("/user");
                 this.user = res.data;
-            } catch (e) {
+            } catch () {
                 this.logout();
             }
         },
