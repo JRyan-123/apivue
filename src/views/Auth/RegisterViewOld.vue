@@ -1,6 +1,5 @@
 <script setup>
 import FormInput from '@/components/FormInput.vue';
-import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
 import { onMounted, reactive } from 'vue';
@@ -12,16 +11,10 @@ const formData = reactive({
     password_confirmation: '',
 })
 
+
 const auth = useAuthStore();
-const { errors, loading } = storeToRefs(auth);
+const { errors } = storeToRefs(auth);
 
-//button submit to store validation
-const register = async () => {
-    const success = await auth.authenticate('register', formData);
-    if (success) router.push({ name: 'dashboard' });
-}
-
-// clear old errors when page loads
 onMounted(() => errors.value = {});
 </script>
 
@@ -29,7 +22,7 @@ onMounted(() => errors.value = {});
     <h1 class="text-3xl text-center mb-3">Register Form</h1>
     <main class="flex justify-center">
 
-        <form @submit.prevent="register" class="w-1/2 ">
+        <form @submit.prevent="auth.authenticate('register', formData)" class="w-1/2 ">
             <FormInput label="Name" placeholder="Enter Name" :error="errors.name?.[0]" v-model="formData.name" />
             <FormInput label="Email" type="email" placeholder="Enter Email" :error="errors.email?.[0]"
                 v-model="formData.email" />
@@ -39,11 +32,11 @@ onMounted(() => errors.value = {});
                 v-model="formData.password_confirmation" />
             <button :class="[
                 'w-full px-6 py-2 rounded-lg border transition duration-200',
-                loading
+                auth.loading
                     ? 'text-yellow-500 border-yellow-500 opacity-60 cursor-not-allowed'
                     : 'text-yellow-500 border-yellow-500 hover:bg-yellow-500 hover:text-black hover:scale-102'
-            ]" :disabled="loading">
-                {{ loading ? 'Loading...' : 'Register' }}
+            ]" :disabled="auth.loading">
+                {{ auth.loading ? 'Loading...' : 'Register' }}
             </button>
 
 
