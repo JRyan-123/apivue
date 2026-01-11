@@ -1,19 +1,19 @@
-import axios from "axios";
 
+import axios from 'axios';
+import { useAuthStore } from '@/stores/auth';
 
 const api = axios.create({
-    baseURL: "http://localhost:8000/api",
-    headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-    },
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+    headers: { 'Content-Type': 'application/json' },
 });
 
+// attach token on every request
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    const auth = useAuthStore();
+    if (auth.token) {
+        config.headers.Authorization = `Bearer ${auth.token}`;
+    }
     return config;
 });
-
 
 export default api;
