@@ -62,9 +62,7 @@ export const useAuthStore = defineStore('auth', () => {
         router.push({ name: 'login' });
     };
 
-    function clearErrors() {
-        errors.value = {};
-    }
+
     return {
         user,
         token,
@@ -74,6 +72,5 @@ export const useAuthStore = defineStore('auth', () => {
         authenticate,
         fetchUser,
         logout,
-        clearErrors
     };
 });
