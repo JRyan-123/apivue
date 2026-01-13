@@ -28,10 +28,10 @@ onMounted(() => errors.value = {})
     <main class="flex justify-center">
         <form @submit.prevent="login" class="w-1/2">
             <FormInput label="Email" type="email" placeholder="Enter Email" v-model="formData.email"
-                :error="errors.email?.[0]" />
+                :error="errors.email?.[0]" :disabled="loading" />
 
             <FormInput label="Password" type="password" placeholder="Enter Password" v-model="formData.password"
-                :error="errors.password?.[0]" />
+                :error="errors.password?.[0]" :disabled="loading" />
 
             <button type="submit" :class="[
                 'w-full px-6 py-2 rounded-lg border transition duration-200',

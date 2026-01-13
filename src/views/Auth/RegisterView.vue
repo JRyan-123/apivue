@@ -30,13 +30,14 @@ onMounted(() => errors.value = {});
     <main class="flex justify-center">
 
         <form @submit.prevent="register" class="w-1/2 ">
-            <FormInput label="Name" placeholder="Enter Name" :error="errors.name?.[0]" v-model="formData.name" />
+            <FormInput label="Name" placeholder="Enter Name" :error="errors.name?.[0]" v-model="formData.name"
+                :disabled="loading" />
             <FormInput label="Email" type="email" placeholder="Enter Email" :error="errors.email?.[0]"
-                v-model="formData.email" />
+                v-model="formData.email" :disabled="loading" />
             <FormInput label="Password" type="password" placeholder="Enter Password" :error="errors.password?.[0]"
-                v-model="formData.password" />
+                v-model="formData.password" :disabled="loading" />
             <FormInput label="Confirm Password" type="password" placeholder="Confirm Password"
-                v-model="formData.password_confirmation" />
+                v-model="formData.password_confirmation" :disabled="loading" />
             <button :class="[
                 'w-full px-6 py-2 rounded-lg border transition duration-200',
                 loading

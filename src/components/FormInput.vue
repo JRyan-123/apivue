@@ -2,11 +2,15 @@
 import { defineModel, defineProps } from 'vue';
 const model = defineModel();
 
-const props = defineProps({
+defineProps({
     label: String,
     type: { type: String, default: "text" },
     error: { type: String, default: "" },
-    placeholder: { type: String, default: "" }
+    placeholder: { type: String, default: "" },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
 })
 </script>
 <template>
@@ -17,7 +21,8 @@ const props = defineProps({
             {{ label }}
         </label>
 
-        <input :type="type" :placeholder="placeholder" v-model="model"
+        <input :type="type" :placeholder="placeholder" v-model="model" :disabled="disabled"
+            :class="disabled ? ' bg-gray-800' : ''"
             class="w-full px-3 py-2 rounded bg-gray-600 text-white border border-gray-50 focus:border-amber-300 outline-none ">
 
         <p v-if="error" class="text-red-500 text-sm mt-1">
